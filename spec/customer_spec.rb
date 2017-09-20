@@ -23,4 +23,10 @@ describe 'Customer' do
       expect(customer.prefer_breed).to eq "maincoon"
     end
   end
+
+  describe '.all' do
+    it 'will return an empty array' do
+      expect(Customer.all).to eq []
+    end
+  end
 end
