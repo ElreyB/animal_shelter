@@ -29,6 +29,10 @@ class Customer
     @id = result.first.fetch('id').to_i
   end
 
+  def self.find(id)
+    Customer.all.find{ |customer| customer.id == id }
+  end
+
   def ==(another_customer)
     self.name == another_customer.name &&
     self.phone == another_customer.phone &&
