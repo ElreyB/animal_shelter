@@ -1,5 +1,5 @@
 class Customer
-  attr_reader :name, :phone, :email, :prefer_type, :prefer_breed
+  attr_reader :name, :phone, :email, :prefer_type, :prefer_breed, :id
 
   def initialize(args)
     @name = args.fetch(:name)
@@ -7,6 +7,7 @@ class Customer
     @email = args.fetch(:email)
     @prefer_type = args.fetch(:prefer_type)
     @prefer_breed = args.fetch(:prefer_breed)
+    @id = args.fetch(:id)
   end
 
   def self.all
@@ -17,9 +18,15 @@ class Customer
         :phone => customer.fetch('phone'),
         :email => customer.fetch('email'),
         :prefer_type => customer.fetch('prefer_type'),
-        :prefer_breed => customer.fetch('prefer_breed')
+        :prefer_breed => customer.fetch('prefer_breed'),
+        :id => customer.fetch('id').to_i
         })
     end
+  end
+
+  def save
+    result = DB.exec("INSERT INTO customers (name, phone, email, prefer_type, prefer_breed) VALUES ('#{@name}', '#{@phone}', '#{@email}', '#{@prefer_type}', '#{@prefer_breed}') RETURNING id;")
+    @id = result.first.fetch('id').to_i
   end
 
   def ==(another_customer)
@@ -27,6 +34,7 @@ class Customer
     self.phone == another_customer.phone &&
     self.email == another_customer.email &&
     self.prefer_type == another_customer.prefer_type &&
-    self.prefer_breed == another_customer.prefer_breed
+    self.prefer_breed == another_customer.prefer_breed &&
+    self.id == another_customer.id
   end
 end

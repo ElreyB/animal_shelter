@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Customer' do
-  let(:customer) { Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon"}) }
+  let(:customer) { Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon", :id => nil}) }
 
   describe '#initialize' do
     it 'has a readable name' do
@@ -30,16 +30,16 @@ describe 'Customer' do
     end
   end
 
-  # describe '#save' do
-  #   it 'will save customer to database' do
-  #     customer.save
-  #     expect()
-  #   end
-  # end
+  describe '#save' do
+    it 'will save customer to database' do
+      customer.save
+      expect(Customer.all).to eq [customer]
+    end
+  end
 
   describe '#==' do
     it 'is the same customer if it information' do
-      customer2 = Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon"})
+      customer2 = Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon", :id => nil})
       expect(customer).to eq customer2
     end
   end
