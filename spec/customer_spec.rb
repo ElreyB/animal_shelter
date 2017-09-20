@@ -19,8 +19,14 @@ describe 'Customer' do
     it 'has a readable prefer type' do
       expect(customer.prefer_type).to eq "cat"
     end
+
     it 'has a readable prefer breed' do
       expect(customer.prefer_breed).to eq "maincoon"
+    end
+
+    it 'sets its #id when saved' do
+      customer.save
+      expect(customer.id).to be_an_instance_of Fixnum
     end
   end
 
