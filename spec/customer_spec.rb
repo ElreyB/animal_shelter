@@ -29,4 +29,18 @@ describe 'Customer' do
       expect(Customer.all).to eq []
     end
   end
+
+  # describe '#save' do
+  #   it 'will save customer to database' do
+  #     customer.save
+  #     expect()
+  #   end
+  # end
+
+  describe '#==' do
+    it 'is the same customer if it information' do
+      customer2 = Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon"})
+      expect(customer).to eq customer2
+    end
+  end
 end

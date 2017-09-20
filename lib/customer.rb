@@ -21,4 +21,12 @@ class Customer
         })
     end
   end
+
+  def ==(another_customer)
+    self.name == another_customer.name &&
+    self.phone == another_customer.phone &&
+    self.email == another_customer.email &&
+    self.prefer_type == another_customer.prefer_type &&
+    self.prefer_breed == another_customer.prefer_breed
+  end
 end
