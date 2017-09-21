@@ -21,9 +21,14 @@ class Animal
         admitted: animal['admitted'],
         type: animal['type'],
         breed: animal['breed'],
-        adopted_by: animal['adopted_by']
+        adopted_by: animal['adopted_by'].to_i
         })
     end
+  end
+
+  def save
+    id = DB.exec("INSERT INTO animals (name, gender, admitted, type, breed, adopted_by) VAlUES ('#{@name}', '#{@gender}', '#{@admitted}', '#{@type}', '#{@breed}', #{@adopted_by}) RETURNING id;")
+    @id = id.first['id'].to_i
   end
 
   def ==(other_animal)

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'Animal' do
-  let(:animal) { Animal.new({ name: "Osrey", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "maincoon" }) }
-  let(:animal2) { Animal.new({ name: "Osrey", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "maincoon" }) }
+  let(:animal) { Animal.new({ name: "Osrey", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "maincoon", adopted_by: 1}) }
+  let(:animal2) { Animal.new({ name: "Osrey", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "maincoon", adopted_by: 1 }) }
 
   describe '#initialize' do
     it 'has a readable name attribute' do
@@ -30,7 +30,7 @@ describe 'Animal' do
     end
 
     it 'has a readable adopted by attribute' do
-      expect(animal.adopted_by).to eq nil
+      expect(animal.adopted_by).to eq 1
     end
   end
 
@@ -41,13 +41,13 @@ describe 'Animal' do
       end
     end
   end
-  #
-  # describe '#save' do
-  #   it 'will save animal to database' do
-  #
-  #     expect()
-  #   end
-  # end
+
+  describe '#save' do
+    it 'will save animal to database' do
+      animal.save
+      expect(Animal.all).to eq [animal]
+    end
+  end
 #  breed, type or by name
   # describe '.sort_by' do
   #   it 'will sort by name alphabetical'do
