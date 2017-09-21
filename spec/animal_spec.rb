@@ -85,6 +85,16 @@ describe 'Animal' do
     end
   end
 
+  describe '#owner' do
+    context 'if adopted by a customer' do
+      it 'will return the owner of the pet' do
+        customer = Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "sinamese"})
+        customer.save
+        
+      end
+    end
+  end
+
   describe '#==' do
     it 'is the same animal if the information is the same' do
       expect(animal).to eq animal2

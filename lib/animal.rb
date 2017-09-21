@@ -8,7 +8,7 @@ class Animal
     @admitted  = args[:admitted]
     @type = args[:type]
     @breed = args[:breed]
-    @adopted_by = args.fetch(:adopted_by){ nil }
+    @adopted_by = args.fetch(:adopted_by){ 0 }
   end
 
   def self.all
