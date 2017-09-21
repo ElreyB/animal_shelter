@@ -29,6 +29,13 @@ describe 'Animal' do
       expect(animal.id).to eq nil
     end
 
+    context 'when saved' do
+      it 'has a readable number' do
+        animal.save
+        expect(animal.id).to be_a Integer
+      end
+    end
+
     it 'has a readable adopted by attribute' do
       expect(animal.adopted_by).to eq 1
     end
@@ -49,11 +56,11 @@ describe 'Animal' do
     end
   end
 #  breed, type or by name
-  # describe '.sort_by' do
-  #   it 'will sort by name alphabetical'do
-  #     expect(Animal.sort_by("name")).to eq
-  #   end
-  # end
+  describe '.sort_by' do
+    it 'will sort by name alphabetical'do
+      expect(Animal.sort_by("name")).to eq
+    end
+  end
 
   describe '#==' do
     it 'is the same animal if the information is the same' do
