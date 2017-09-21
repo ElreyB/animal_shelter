@@ -53,6 +53,16 @@ describe 'Customer' do
     end
   end
 
+  describe '.sort_by' do
+    it 'will sort by customers by prefered breed' do
+      customer1 = Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "sinamese"})
+      customer1.save
+      customer2.save
+      customer3.save
+      expect(Customer.sort_by("prefer_breed")).to eq [customer3, customer2, customer1]  
+    end
+  end
+
   describe '#==' do
     it 'is the same customer if it information' do
       expect(customer).to eq customer2

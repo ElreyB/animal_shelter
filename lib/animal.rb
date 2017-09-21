@@ -14,17 +14,6 @@ class Animal
   def self.all
     animals = DB.exec("SELECT * FROM animals;")
     Animal.map_animals(animals)
-    # db_animals.map do |animal|
-    #   Animal.new({
-    #     id: animal['id'].to_i,
-    #     name: animal['name'],
-    #     gender: animal['gender'],
-    #     admitted: animal['admitted'],
-    #     type: animal['type'],
-    #     breed: animal['breed'],
-    #     adopted_by: animal['adopted_by'].to_i
-    #     })
-    # end
   end
 
   def save
@@ -49,7 +38,7 @@ class Animal
 
 
  # helper method
-  def self.map_animals(list)
+  def self.map_animals(animals)
     list.map do |animal|
       Animal.new({
         id: animal['id'].to_i,

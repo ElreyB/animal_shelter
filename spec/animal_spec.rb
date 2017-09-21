@@ -55,7 +55,7 @@ describe 'Animal' do
       expect(Animal.all).to eq [animal]
     end
   end
-#  breed, type or by name
+
   describe '.sort_by' do
     it 'will sort by name alphabetical'do
       animal3 = Animal.new({ name: "Bob", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "maincoon", adopted_by: 1})

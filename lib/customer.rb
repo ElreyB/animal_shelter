@@ -11,17 +11,8 @@ class Customer
   end
 
   def self.all
-    returned_customers = DB.exec("SELECT * FROM customers;")
-    returned_customers.map do |customer|
-      Customer.new({
-        :name => customer.fetch('name'),
-        :phone => customer.fetch('phone'),
-        :email => customer.fetch('email'),
-        :prefer_type => customer.fetch('prefer_type'),
-        :prefer_breed => customer.fetch('prefer_breed'),
-        :id => customer.fetch('id').to_i
-        })
-    end
+    customers = DB.exec("SELECT * FROM customers;")
+    Customer.map_customers(customers)
   end
 
   def save
@@ -33,6 +24,11 @@ class Customer
     Customer.all.find{ |customer| customer.id == id }
   end
 
+  def self.sort_by(query)
+    results = DB.exec("SELECT * FROM customers ORDER BY #{query} ASC")
+    Customer.map_customers(results)
+  end
+
   def ==(another_customer)
     self.name == another_customer.name &&
     self.phone == another_customer.phone &&
@@ -40,5 +36,20 @@ class Customer
     self.prefer_type == another_customer.prefer_type &&
     self.prefer_breed == another_customer.prefer_breed &&
     self.id == another_customer.id
+  end
+
+  #helper-method
+
+  def self.map_customers(customers)
+    customers.map do |customer|
+      Customer.new({
+        :name => customer.fetch('name'),
+        :phone => customer.fetch('phone'),
+        :email => customer.fetch('email'),
+        :prefer_type => customer.fetch('prefer_type'),
+        :prefer_breed => customer.fetch('prefer_breed'),
+        :id => customer.fetch('id').to_i
+        })
+    end
   end
 end
