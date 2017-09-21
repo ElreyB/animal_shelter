@@ -7,7 +7,7 @@ class Customer
     @email = args.fetch(:email)
     @prefer_type = args.fetch(:prefer_type)
     @prefer_breed = args.fetch(:prefer_breed)
-    @id = args.fetch(:id)
+    @id = args.fetch(:id){ nil }
   end
 
   def self.all

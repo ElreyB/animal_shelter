@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Customer' do
-  let(:customer) { Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon", :id => nil}) }
+  let(:customer) { Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon"}) }
   let(:customer2) { Customer.new({:name => "Elrey", :phone => "200.365.2589", :email => "eb@yahoo.com", :prefer_type => "cat", :prefer_breed => "maincoon", :id => nil}) }
   let(:customer3) { Customer.new({:name => "Oscar", :phone => "847-383-9943", :email => "OscarTheGreat@gmail.com", :prefer_type => "dog", :prefer_breed => "German Shepherd", :id => nil}) }
   let(:saved_customers) {[customer3.save, customer2.save, customer.save]}
