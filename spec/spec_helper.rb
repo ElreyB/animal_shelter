@@ -2,7 +2,7 @@ require 'rspec'
 require 'pry'
 require 'pg'
 require 'customer'
-# require 'animal'
+require 'animal'
 
 DB = PG.connect({:dbname => 'animal_shelter_test'})
 

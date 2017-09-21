@@ -49,7 +49,6 @@ describe 'Customer' do
   describe '.find' do
     it 'will find a customer by id' do
       saved_customers
-      p Customer.find(customer2.id)
       expect(Customer.find(customer2.id)).to eq customer2
     end
   end
