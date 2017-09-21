@@ -4,7 +4,7 @@ require 'pg'
 require 'customer'
 # require 'animal'
 
-DB = PG.connect({:dbname => 'cuddle_shelter_test'})
+DB = PG.connect({:dbname => 'animal_shelter_test'})
 
 RSpec.configure do |config|
   config.after(:each) do

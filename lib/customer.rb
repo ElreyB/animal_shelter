@@ -2,11 +2,11 @@ class Customer
   attr_reader :name, :phone, :email, :prefer_type, :prefer_breed, :id
 
   def initialize(args)
-    @name = args.fetch(:name)
-    @phone = args.fetch(:phone)
-    @email = args.fetch(:email)
-    @prefer_type = args.fetch(:prefer_type)
-    @prefer_breed = args.fetch(:prefer_breed)
+    @name = args[:name]
+    @phone = args[:phone]
+    @email = args[:email]
+    @prefer_type = args[:prefer_type]
+    @prefer_breed = args[:prefer_breed]
     @id = args.fetch(:id){ nil }
   end
 
