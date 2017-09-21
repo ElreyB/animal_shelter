@@ -32,9 +32,10 @@ class Animal
     @id = id.first['id'].to_i
   end
 
-  # def self.sort_by(query)
-  #   results =
-  # end
+  def self.sort_by(query)
+    results = DB.exec("SELECT * FROM animals ORDER BY #{query} ASC")
+    Animal.map_animals(results)
+  end
 
   def ==(other_animal)
     self.id == other_animal.id &&

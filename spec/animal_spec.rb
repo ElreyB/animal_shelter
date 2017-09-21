@@ -58,7 +58,30 @@ describe 'Animal' do
 #  breed, type or by name
   describe '.sort_by' do
     it 'will sort by name alphabetical'do
-      expect(Animal.sort_by("name")).to eq
+      animal3 = Animal.new({ name: "Bob", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "maincoon", adopted_by: 1})
+      animal4 = Animal.new({ name: "Sam", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "maincoon", adopted_by: 1})
+      animal4.save
+      animal3.save
+      animal2.save
+      expect(Animal.sort_by("name")).to eq [animal3, animal2, animal4]
+    end
+
+    it 'will sort by type alphabetical'do
+      animal3 = Animal.new({ name: "Bob", gender: "Male", admitted: "2017-09-22", type: "dog", breed: "maincoon", adopted_by: 1})
+      animal4 = Animal.new({ name: "Sam", gender: "Male", admitted: "2017-09-22", type: "bird", breed: "maincoon", adopted_by: 1})
+      animal4.save
+      animal3.save
+      animal2.save
+      expect(Animal.sort_by("type")).to eq [animal4, animal2, animal3]
+    end
+
+    it 'will sort by breed alphabetical'do
+      animal3 = Animal.new({ name: "Bob", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "ally", adopted_by: 1})
+      animal4 = Animal.new({ name: "Sam", gender: "Male", admitted: "2017-09-22", type: "cat", breed: "sinamese", adopted_by: 1})
+      animal4.save
+      animal3.save
+      animal2.save
+      expect(Animal.sort_by("breed")).to eq [animal3, animal2, animal4]
     end
   end
 
