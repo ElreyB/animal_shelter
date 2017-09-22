@@ -27,9 +27,15 @@ describe('Welcome page', {:type => :feature}) do
 end
 
 describe('Admin welcome page', {:type => :feature}) do
-  it 'it goes to list of animals' do
+  it 'goes to list of animals' do
     visit('/admin')
     click_link('Add Animal')
-    expect(page.find('//h2')).to have_content("Here are you current animal residents")
+    expect(page.find('//h2')).to have_content("Here are you current animal residents:")
+  end
+
+  it 'goes to customer list' do
+    visit('/admin')
+    click_link('Add Customer')
+    expect(page.find('//h2')).to have_content("Here are you current potential owners:")
   end
 end

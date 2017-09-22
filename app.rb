@@ -25,3 +25,8 @@ get('/admin/animal') do
   @admin = true
   erb(:animal_list)
 end
+
+get('/admin/customer') do
+  @admin = true
+  erb(:customer_list)
+end
