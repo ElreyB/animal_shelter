@@ -1,5 +1,6 @@
 class Animal
-  attr_reader :id, :name, :gender, :admitted, :type, :breed, :adopted_by
+  attr_reader :id, :gender, :type
+  attr_accessor :name, :admitted, :breed, :adopted_by
 
   def initialize(args)
     @id = args.fetch(:id){ nil }
@@ -17,17 +18,25 @@ class Animal
   end
 
   def save
-    id = DB.exec("INSERT INTO animals (name, gender, admitted, type, breed, adopted_by) VAlUES ('#{@name}', '#{@gender}', '#{@admitted}', '#{@type}', '#{@breed}', #{@adopted_by}) RETURNING id;")
-    @id = id.first['id'].to_i
+    if @id
+      update
+    else
+      save_return_id = DB.exec("INSERT INTO animals (name, gender, admitted, type, breed, adopted_by) VAlUES ('#{@name}', '#{@gender}', '#{@admitted}', '#{@type}', '#{@breed}', #{@adopted_by}) RETURNING id;")
+      @id = save_return_id.first['id'].to_i
+    end
+  end
+
+  def update
+    DB.exec("UPDATE animals SET name = '#{@name}', admitted = '#{@admitted}', breed = '#{@breed}', adopted_by = #{@adopted_by} WHERE id = @id;")
   end
 
   def self.sort_by(query)
-    results = DB.exec("SELECT * FROM animals ORDER BY #{query} ASC")
+    results = DB.exec("SELECT * FROM animals ORDER BY #{query} ASC;")
     Animal.map_animals(results)
   end
 
   def self.find(id)
-    animal = DB.exec("SELECT * FROM animals WHERE id = #{id}")
+    animal = DB.exec("SELECT * FROM animals WHERE id = #{id};")
     Animal.map_animals(animal)
   end
 
@@ -44,7 +53,7 @@ class Animal
 
  # helper method
   def self.map_animals(animals)
-    list.map do |animal|
+    animals.map do |animal|
       Animal.new({
         id: animal['id'].to_i,
         name: animal['name'],
