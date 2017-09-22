@@ -1,6 +1,18 @@
 
 <% if @admin == true %>
   <h2>Here are you current animal residents:</h2>
+    <% if @animals.any? %>
+      <ul>
+        <% @animals.each do |animal| %>
+          <li>
+            <a href="/animal/<%= animal.id %>"> <%= animal.name %> </a>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h3>Current no animals in our database.</h3>
+    <% end %>
+    
 <% elsif @admin == "longest residents" %>
   <h2>Longest Residents</h2>
 <% end %>

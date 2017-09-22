@@ -23,7 +23,23 @@ end
 
 get('/admin/animals') do
   @admin = true
+  @animals = Animal.all
+  # binding.pry
   erb(:animal_list)
+end
+
+get('/admin/animals/add') do
+  @admin = true
+  animal = Animal.new({
+    name: params['name'],
+    gender: params['gender'],
+    admitted: params['admitted'],
+    type: params['type'],
+    breed: params['breed']
+    })
+  animal.save
+  @animals = Animal.all
+  redirect "/animal_list"
 end
 
 get('/admin/customers') do
