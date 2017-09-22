@@ -6,7 +6,7 @@ require './lib/customer'
 require 'pg'
 require 'pry'
 
-DB = PG.connect({:dbname => 'animal_shelter'})
+DB = PG.connect({:dbname => 'animal_shelter_test'})
 
 
 get('/') do
@@ -21,6 +21,7 @@ get('/guest') do
   erb(:potential_owner)
 end
 
+
 get('/admin/animals') do
   @admin = true
   @animals = Animal.all
@@ -28,8 +29,7 @@ get('/admin/animals') do
   erb(:animal_list)
 end
 
-get('/admin/animals/add') do
-  @admin = true
+post('/admin/animal/add') do
   animal = Animal.new({
     name: params['name'],
     gender: params['gender'],
@@ -38,8 +38,7 @@ get('/admin/animals/add') do
     breed: params['breed']
     })
   animal.save
-  @animals = Animal.all
-  redirect "/animal_list"
+  redirect '/admin/animals'
 end
 
 get('/admin/customers') do

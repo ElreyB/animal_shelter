@@ -4,6 +4,10 @@ require('./app')
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
 
+describe('home', {:type => :feature}) do
+  before() do
+    Word.clear
+
 
 describe('Home Page', {:type => :feature}) do
   it 'Show welcome sign' do
@@ -49,8 +53,8 @@ end
 describe('Admin animal list page', {:type => :feature}) do
   context 'when there are animals on list' do
     it 'will show animals on list' do
-      visit('/animal_list')
-      click_button('Add Animal')
+      visit('/admin')
+      click_link('Add Animal')
       fill_in('name', :with => "Osrey")
       fill_in('gender', :with => "male")
       fill_in('admitted', :with => "2017-09-11")
@@ -60,11 +64,16 @@ describe('Admin animal list page', {:type => :feature}) do
       expect(page).to have_content("Osrey")
     end
   end
+end
 
+
+describe('Admin animal list page', {:type => :feature}) do
   context 'when there are no animals on list' do
     it 'will show no animals message' do
-      visit('/animal_list')
+      visit('/admin/animals')
+      save_and_open_page
       expect(page).to have_content("Current no animals in our database.")
     end
   end
+end
 end
