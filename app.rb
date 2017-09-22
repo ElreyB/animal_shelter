@@ -20,3 +20,8 @@ end
 get('/guest') do
   erb(:potential_owner)
 end
+
+get('/admin/animal') do
+  @admin = true
+  erb(:animal_list)
+end
