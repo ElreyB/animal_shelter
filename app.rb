@@ -16,3 +16,7 @@ end
 get('/admin') do
   erb(:admin)
 end
+
+get('/guest') do
+  erb(:potential_owner)
+end

@@ -18,4 +18,10 @@ describe('Welcome page', {:type => :feature}) do
     click_link('Shelter Worker')
     expect(page.find('//h1')).to have_content("Welcome Shelter Worker")
   end
+
+  it 'it goes to admin page' do
+    visit('/')
+    click_link('Potential Owner')
+    expect(page.find('//h1')).to have_content("Welcome Potential Owner")
+  end
 end
