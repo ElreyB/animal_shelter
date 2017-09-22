@@ -21,12 +21,17 @@ get('/guest') do
   erb(:potential_owner)
 end
 
-get('/admin/animal') do
+get('/admin/animals') do
   @admin = true
   erb(:animal_list)
 end
 
-get('/admin/customer') do
+get('/admin/customers') do
   @admin = true
   erb(:customer_list)
+end
+
+get('/admin/chronological_animals') do
+  @admin = "longest residents"
+  erb(:animal_list)
 end

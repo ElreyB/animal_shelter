@@ -38,4 +38,10 @@ describe('Admin welcome page', {:type => :feature}) do
     click_link('Add Customer')
     expect(page.find('//h2')).to have_content("Here are you current potential owners:")
   end
+
+  it 'goes to chronological list of animals' do
+    visit('/admin')
+    click_link('Residents')
+    expect(page.find('//h2')).to have_content("Longest Residents")
+  end
 end

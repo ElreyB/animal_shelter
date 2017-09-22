@@ -1,1 +1,6 @@
-<h2>Here are you current animal residents:</h2>
+
+<% if @admin == true %>
+  <h2>Here are you current animal residents:</h2>
+<% elsif @admin == "longest residents" %>
+  <h2>Longest Residents</h2>
+<% end %>
