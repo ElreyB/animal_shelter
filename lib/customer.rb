@@ -29,6 +29,32 @@ class Customer
     Customer.map_customers(results)
   end
 
+  def update(args, query = "name")
+    value = nil
+    case query
+    when "name"
+      @name = args[:name]
+      value = @name
+    when "phone"
+      @phone = args[:phone]
+      value = @phone
+    when "email"
+      @email = args[:email]
+      value = @email
+    when "prefer_type"
+      @prefer_type = args[:prefer_type]
+      value = @prefer_type
+    when "prefer_breed"
+      @prefer_breed = args[:prefer_breed]
+      value = @prefer_breed
+    end
+    DB.exec("UPDATE customer SET #{query} = #{value} WHERE id = #{self.id};")
+  end
+
+  def delete
+    DB.exec("DELETE FROM customers WHERE id = #{self.id};")
+  end
+
   def ==(another_customer)
     self.name == another_customer.name &&
     self.phone == another_customer.phone &&
