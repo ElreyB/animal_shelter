@@ -1,6 +1,5 @@
 class Animal
-  attr_reader :id, :gender, :type
-  attr_accessor :name, :admitted, :breed, :adopted_by
+  attr_reader :id, :gender, :type, :name, :admitted, :breed, :adopted_by, :image
 
   def initialize(args)
     @id = args.fetch(:id){ nil }
@@ -10,6 +9,7 @@ class Animal
     @type = args[:type]
     @breed = args[:breed]
     @adopted_by = args.fetch(:adopted_by){ 0 }
+    @image = args.fetch(:image){ "need photo" }
   end
 
   def self.all
@@ -18,16 +18,25 @@ class Animal
   end
 
   def save
-    if @id
-      update
-    else
-      save_return_id = DB.exec("INSERT INTO animals (name, gender, admitted, type, breed, adopted_by) VAlUES ('#{@name}', '#{@gender}', '#{@admitted}', '#{@type}', '#{@breed}', #{@adopted_by}) RETURNING id;")
-      @id = save_return_id.first['id'].to_i
-    end
+    save_return_id = DB.exec("INSERT INTO animals (name, gender, admitted, type, breed, adopted_by, image) VAlUES ('#{@name}', '#{@gender}', '#{@admitted}', '#{@type}', '#{@breed}', #{@adopted_by}, '#{@image}') RETURNING id;")
+    @id = save_return_id.first['id'].to_i
   end
 
-  def update
-    DB.exec("UPDATE animals SET name = '#{@name}', admitted = '#{@admitted}', breed = '#{@breed}', adopted_by = #{@adopted_by} WHERE id = @id;")
+  def update(args, query = "name")
+    value = nil
+    case query
+    when "name"
+      @name = args[:name]
+      value = @name
+    when "image"
+      @image = args[:image]
+      value = @image
+    when "adopted_by"
+      @adopted_by = args[:adopted_by]
+      value = @adopted_by
+      return DB.exec("UPDATE animals SET #{query} = #{value} WHERE id = #{self.id};")
+    end
+    DB.exec("UPDATE animals SET #{query} = '#{value}' WHERE id = #{self.id};")
   end
 
   def self.sort_by(query)
@@ -37,7 +46,11 @@ class Animal
 
   def self.find(id)
     animal = DB.exec("SELECT * FROM animals WHERE id = #{id};")
-    Animal.map_animals(animal)
+    Animal.map_animals(animal).first
+  end
+
+  def delete
+    DB.exec("DELETE FROM animals WHERE id = #{self.id};")
   end
 
   def ==(other_animal)
@@ -47,7 +60,8 @@ class Animal
     self.admitted == other_animal.admitted &&
     self.type == other_animal.type &&
     self.breed == other_animal.breed &&
-    self.adopted_by == other_animal.adopted_by
+    self.adopted_by == other_animal.adopted_by &&
+    self.image == other_animal.image
   end
 
 
@@ -61,7 +75,8 @@ class Animal
         admitted: animal['admitted'],
         type: animal['type'],
         breed: animal['breed'],
-        adopted_by: animal['adopted_by'].to_i
+        adopted_by: animal['adopted_by'].to_i,
+        image: animal['image']
         })
     end
   end
